@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WiFiManager</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    List<ScanResult> wifiScanList = mainWifiObj.getScanResults();
+
+    String data = wifiScanList.get(0).toString();
+
+</resources>
