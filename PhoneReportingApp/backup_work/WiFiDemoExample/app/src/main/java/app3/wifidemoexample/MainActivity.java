@@ -3,13 +3,12 @@ package app3.wifidemoexample;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -37,18 +36,21 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         btn = (Button) findViewById(R.id.btn);
         btn.setOnClickListener(this);
         //get wifi status
+
         wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        WifiInfo info = wifi.getConnectionInfo();
-        text.append("\n\nwifi status:" + info.toString());
+        List<ScanResult> wifiScanList;
+        wifiScanList = wifi.getScanResults();
+
         // list available network
 
+
         List<WifiConfiguration> configurations = wifi.getConfiguredNetworks();
-        for (WifiConfiguration configuration : configurations) {
-            text.append("\n\n" + configuration.toString());
+       for (WifiConfiguration configuration : configurations) {
+          text.append("\n\n" + configuration.toString());
 
         } // register broadcast receiver
         if (receiver==null)
-             receiver=new WifiScaner(this);
+             receiver=new WifiScanner(this);
         registerReceiver(receiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         Log.d(TAG,"onCreate()");
     }
@@ -73,15 +75,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
-
+    @SuppressWarnings("ResourceType")
     @Override
     public void onClick(View view) {
-        Toast.makeText(getApplicationContext(),"All Network searched !!",0).show();
+        //noinspection ResourceType,ResourceType,ResourceType,ResourceType
+        Toast.makeText(getApplicationContext(), "All Network searched !!", 0).show();
         if(view.getId()==R.id.btn){
             Log.d(TAG,"onCreate() wifi startScan()");
             wifi.startScan();
