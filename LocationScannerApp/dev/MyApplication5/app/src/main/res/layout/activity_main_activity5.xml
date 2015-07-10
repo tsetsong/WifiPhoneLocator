@@ -1,12 +1,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:orientation="vertical" android:layout_height="match_parent"
-    android:clickable="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ff000000">
+
+
     <Button android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search Network"/>
-    <ScrollView android:id="@+id/scrollview"
+        android:text="Scan"
+        android:visibility="visible"
+        android:textColor="#ffffffff" />
+
+    <ScrollView android:id="@+id/scroolview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
@@ -14,9 +21,19 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="WiFiDemo"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textStyle="bold|italic"
+            android:textColor="#ffffffff"
+            android:visibility="visible" />
     </ScrollView>
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:background="#ff000000" />
 
 
 </LinearLayout>
