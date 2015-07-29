@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="button1" type="id" />
+    <item name="listView1" type="id" />
+    <item name="list_value" type="id" />
+    <item name="simple_list_item_1" type="id" />
+</resources>
