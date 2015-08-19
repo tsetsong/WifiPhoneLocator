@@ -4,13 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
-import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.telephony.SmsMessage;
-
 import java.util.List;
 
-public class WifiReceiver extends BroadcastReceiver {
+public class WifiReceiver extends BroadcastReceiver  {
     private static final String TAG = "WifiscanReceiver";
 
     MainActivity mainactivity;
@@ -20,18 +17,17 @@ public class WifiReceiver extends BroadcastReceiver {
     private SmsManager Manager;
     private String[] scanresults;
 
-
-    public WifiReceiver(MainActivity main) {
+    public WifiReceiver(MainActivity main)
+    {
         super();
         mainactivity = main;
     }
-
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context arg0, Intent intent) {
 
         List<ScanResult> results;
         String first;
-
+        String GpsStatus;
         String BSSID = null;
         result = new String[0];
         String[] getresults = null;
@@ -46,42 +42,9 @@ public class WifiReceiver extends BroadcastReceiver {
 
         String a = String.valueOf(x);
 
-        //---get the SMS message passed in---
-   /*     Bundle bundle = intent.getExtras();
-
-        SmsMessage[] msgs;
-        SmsMessage[] phonenum;
-
-        String str = "";
-        String PhoneNUMBER = ""; //
-
-        //---retrieve the SMS message received---
-        Object[] pdus = (Object[]) bundle.get("pdus");
-
-        msgs = new SmsMessage[pdus.length];
-        for (i = 0; i < msgs.length; i++) {
-            msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
-            str += "SMS from " + msgs[i].getOriginatingAddress();
-            str += " :";
-            str += msgs[i].getMessageBody();
-            str += "\n";
-        }
-         //---retrieve the SMS senders number ---
-        phonenum = new SmsMessage[pdus.length];
-        for (i = 0; i < phonenum.length; i++) {
-            phonenum[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
-            PhoneNUMBER += phonenum[i].getOriginatingAddress(); // phonenumber = phonenum  + phonenum [i].getOrignatingAddress
-        }
-
-        //---display the new SMS message---
-        Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
-        Toast.makeText(context, PhoneNUMBER, Toast.LENGTH_LONG).show();
-        */
-
         results = mainactivity.wifi.getScanResults();
         if (results.size() > 5) {
             size = 5;
-
         } else
 
         {
@@ -97,53 +60,63 @@ public class WifiReceiver extends BroadcastReceiver {
                 level = results.get(x).level;
                 SSID = results.get(x).SSID;
 
-                result[x] = BSSID + "\n" + SSID + Integer.toString(level);
+                result[x] = BSSID + "\n" + "\n" + SSID + "\n" + Integer.toString(level);
 
-                result[count] = BSSID + level;
+                result[count] = BSSID + "\n" +level;
                 count++;
 
             }
             index0 = result[0];
-            System.out.println(index0);
+
             index1 = result[1];
-            System.out.println(index1);
+
             index2 = result[2];
-            System.out.println(index2);
+
             index3 = result[3];
-            System.out.println(index3);
+
             index4 = result[4];
-            System.out.println(index4);
         }
 
-        if (count > size) {
+        String message = null;
+
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(mainactivity.sendernumber, null, result[0]+ "\n" + result[1]+ "\n" +result[2]+ "\n" +result[3]+ "\n" +result[4] , null, null);
+
+
+        /*
             System.out.println("Found" + result[count]); // <-----  send message out back to the sender * Not completed *
 
+            final Bundle bundle = intent.getExtras();
             try {
-                Bundle b = intent.getExtras();
-                Object[] pdu = (Object[]) b.get("pdus");
-                SmsMessage sms = null;
+                if (bundle != null) {
+                    final Object[] pdusObj = (Object[]) bundle.get("pdus");
 
-                for (int c = 0; c < pdu.length; c++)
-                {
-                    sms = SmsMessage.createFromPdu((byte[]) pdu[c]);
-                }
-                String sender = sms.getOriginatingAddress();
-                String message = sms.getMessageBody();
-                SmsManager manager = SmsManager.getDefault();
-                manager.sendTextMessage(sender,"" ,index0 + index1 + index2 + index3 + index4, null,null);
-                mainactivity.sendernumber = sender;
+                    for (i = 0; i < pdusObj.length; i++) {
+                        SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
+                        String phoneNumber = currentMessage.getDisplayOriginatingAddress();
+
+                        String senderNum = phoneNumber;
+                        message = currentMessage.getDisplayMessageBody();
+
+                        Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
+
+                        // Show alert
+                        int duration = Toast.LENGTH_LONG;
+
+                        Context context = null;
+                        Toast toast = Toast.makeText(context, index0 + index1 + index2 + index3 + index4 + senderNum + message, duration);
+                        toast.show();
+
+                    } // end for loop
+                } // bundle is null
+
+            } catch (Exception e) {
+                Log.e("SmsReceiver", "Exception smsReceiver" + e);
 
             }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+        */
         }
-
-        System.out.println(results+"\n" + x);
     }
-
-
 
 //          if (size > 5)  // Size more than 5
 //         {
@@ -158,7 +131,7 @@ public class WifiReceiver extends BroadcastReceiver {
 */
 
     //mainactivity.listview.setAdapter(new ArrayAdapter<>(context.getApplicationContext(), android.R.layout.simple_list_item_1, result));
-        }
+
   //      sendreplyMessage(sendreplyMessage());
 
 

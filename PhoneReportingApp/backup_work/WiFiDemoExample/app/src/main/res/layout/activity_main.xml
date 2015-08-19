@@ -7,34 +7,15 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-<ListView
+
+    <ListView
     android:layout_width="match_parent"
-    android:layout_height="311dp"
+    android:layout_height="221dp"
     android:id="@+id/listView"
     android:textColor="#0818F8"
     android:visibility="visible"
-    android:background="#ff66d5ff"
-    android:layout_weight="1.02" />
-
-
-    <TextView
-        android:id="@+id/myTextView"
-        android:layout_width="166dp"
-        android:layout_height="93dp"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Close receive"
-        android:id="@+id/btnClose"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Receive"
-        android:id="@+id/btnreceive" />
+    android:background="#fff0fff4"
+    android:layout_weight="0.50" />
 
 
 </LinearLayout>

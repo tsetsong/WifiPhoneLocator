@@ -4,6 +4,7 @@ package app3.wifidemoexample;
  * Created by 13048577 on 2/7/2015.
  */
 
+
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.wifi.WifiInfo;
@@ -12,13 +13,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity  {
+
     private static final String TAG = "WiFiDemo";
     public WifiManager wifi;
     WifiReceiver wifireceiver;
@@ -28,10 +29,11 @@ public class MainActivity extends ActionBarActivity {
     private WifiInfo info;
     private int ArrayOfUsers;
     public String sendernumber;
-    //    private String data = "";
+    TextView txtV;
+
+
     //    TextView text;
     //    ArrayAdapter<String> adapter
-
 /*
 class loginRunnable implements Runnable {
         public void run() {
@@ -52,61 +54,30 @@ class loginRunnable implements Runnable {
             }
         }
 */
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-            setContentView(R.layout.activity_main);
-            //editText = (EditText) findViewById(R.id.editText);
-            listview = (ListView) findViewById(R.id.listView);
-            Button receive = (Button) findViewById(R.id.btnreceive);
-            Button Close = (Button) findViewById(R.id.btnClose);
-            final TextView myTextView = (TextView) findViewById(R.id.myTextView);
-/*            loginRunnable loginRun = new loginRunnable();
-           loginThread.start();
+        setContentView(R.layout.activity_main);
+        //editText = (EditText) findViewById(R.id.editText);
+        listview = (ListView) findViewById(R.id.listView);
+        txtV = (TextView) findViewById(R.id.textview1);
+        wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        if (!wifi.isWifiEnabled()) {
+            Toast.makeText(getApplicationContext(), "wifi is disabled..making it enabled", Toast.LENGTH_LONG).show();
+            wifi.setWifiEnabled(true);
+        }
 
-            receive.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    try {
-                        loginThread.start();
-                    } catch (Exception e) {
-
-                    }
-                    myTextView.setText(data);
-                }
-            });
-
-            Close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loginThread.interrupt();
-
-                }
-            });
-
- /*       ListView remedyList = (ListView) findViewById(R.id.remedyList);
-        String remedyArray[] = new String[30];
-        ArrayAdapter<String> adapt = new ArrayAdapter<String>(this, R.layout.activity_main, remedyArray);
-        remedyList.setAdapter(adapt);
- */
-            wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-            if (!wifi.isWifiEnabled()) {
-                Toast.makeText(getApplicationContext(), "wifi is disabled..making it enabled", Toast.LENGTH_LONG).show();
-                wifi.setWifiEnabled(true);
-            }
-
-            // List<WifiConfiguration> configurations = wifi.getConfiguredNetworks();
-            if (wifireceiver == null)
-                wifireceiver = new WifiReceiver(this);
-            if (smsreceiver == null)
-                smsreceiver = new SmsReceiver(this);
+        // List<WifiConfiguration> configurations = wifi.getConfiguredNetworks();
+        if (wifireceiver == null)
+            wifireceiver = new WifiReceiver(this);
+        if (smsreceiver == null)
+            smsreceiver = new SmsReceiver(this);
 
 
-            registerReceiver(wifireceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-            registerReceiver(smsreceiver, new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
-            Log.d(TAG, "onCreate()");
+        registerReceiver(wifireceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+        registerReceiver(smsreceiver, new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+        Log.d(TAG, "onCreate()");
 
 
 //        IntentFilter filter = new IntentFilter(android.provider.Telephony.SMS_RECEIVED);
@@ -135,34 +106,34 @@ class loginRunnable implements Runnable {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 */
-        }
+    }
 
-        protected void onPause() {
-            unregisterReceiver(wifireceiver);
-            unregisterReceiver(smsreceiver);
-            super.onPause();
-        }
+    protected void onPause() {
+        unregisterReceiver(wifireceiver);
+        unregisterReceiver(smsreceiver);
+        super.onPause();
+    }
 
-        protected void onResume() {
-            registerReceiver(wifireceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-            super.onResume();
-        }
+    protected void onResume() {
+        registerReceiver(wifireceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+        super.onResume();
+    }
 
 
-        public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
 // Handle action bar item clicks here. The action bar will
 // automatically handle clicks on the Home/Up button, so long
 // as you specify a parent activity in AndroidManifest.xml.
 
-            int id = item.getItemId();
+        int id = item.getItemId();
 
 //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) {
 
-                return true;
+            return true;
 
-            }
-            return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
+}

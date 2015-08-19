@@ -25,18 +25,19 @@ public class SmsReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context arg0, Intent intent)
     {
-        try {
+        try
+        {
                 Bundle b = intent.getExtras();
                 Object[] pdu = (Object[]) b.get("pdus");
                 SmsMessage sms = null;
-                for (int i = 0; i < pdu.length; i++) {
+                for (int i = 0; i < pdu.length; i++)
+                {
                     sms = SmsMessage.createFromPdu((byte[]) pdu[i]);
                 }
 
                 String sender = sms.getOriginatingAddress();
                 String message = sms.getMessageBody();
                 Toast.makeText(arg0, "" + sender + message, Toast.LENGTH_LONG).show();
-
                 // SMS reply
                 SmsManager manager = null;
             if (message.contains("Locate123"))
@@ -46,39 +47,12 @@ public class SmsReceiver extends BroadcastReceiver
                 manager.sendTextMessage(sender, "", "msg received, locating ...", null, null);
                 mainactivity.sendernumber = sender;
                 mainactivity.wifi.startScan();
-
             }
-/*
-
-            final Bundle bundle = intent.getExtras();
-
-            if (bundle != null)
-            {
-                final Object[] pdusObj = (Object[]) bundle.get("pdus");
-
-                for (int i = 0; i < pdusObj.length; i++)
-                {
-                    SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
-                    String phoneNumber = currentMessage.getDisplayOriginatingAddress();
-
-                    String senderNum = phoneNumber;
-                    message = currentMessage.getDisplayMessageBody();
-
-                    Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
-
-                    // Show alert
-                    int duration = Toast.LENGTH_LONG;
-
-                    Toast toast = Toast.makeText(context, "senderNum: " + senderNum + ", message: " + message, duration);
-                    toast.show();
-                } // end for loop
-
-            } // bundle is null
-*/
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
     }
-};
+}
 

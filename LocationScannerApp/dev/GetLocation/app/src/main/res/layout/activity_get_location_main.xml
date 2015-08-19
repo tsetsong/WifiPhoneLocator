@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".GetLocationMainActivity" >
+
+    <Button
+        android:id="@+id/buttonGetLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:onClick="showLoc"
+        android:text="Show My Location" />
+
+    <TextView
+        android:id="@+id/textViewNetLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="94dp"
+        android:text="Network Latitude:  " />
+
+    <TextView
+        android:id="@+id/textViewNetLng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewNetLat"
+        android:layout_below="@+id/textViewNetLat"
+        android:text="Network Longitude:  "
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textViewGpsLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewNetLng"
+        android:layout_below="@+id/textViewNetLng"
+        android:layout_marginTop="20dp"
+        android:text="GPS Latitude:  "
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textViewGpsLng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewGpsLat"
+        android:layout_below="@+id/textViewGpsLat"
+        android:text="GPS Longitude:  "
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

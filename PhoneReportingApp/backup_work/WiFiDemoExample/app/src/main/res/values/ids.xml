@@ -3,4 +3,8 @@
     <item name="list_view" type="id" />
     <item name="ListView" type="id" />
     <item name="listview" type="id" />
+    <item name="textview1" type="id" />
+    <item name="show_location" type="id" />
+    <item name="btnNWShowLocation" type="id" />
+    <item name="btnGPSShowLocation" type="id" />
 </resources>
